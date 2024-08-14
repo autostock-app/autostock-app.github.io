@@ -43,6 +43,11 @@
         .buttons {
             text-align: center;
             margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            /* Añade un espacio entre los botones */
         }
 
         .buttons a {
@@ -54,10 +59,27 @@
             border-radius: 5px;
             margin: 0 10px;
             transition: background-color 0.3s ease;
+            width: 80%;
+            /* Para que ocupen un buen espacio en móviles */
+            max-width: 300px;
         }
 
         .buttons a:hover {
             background-color: #4F79FD;
+        }
+
+        @media (min-width: 600px) {
+            .buttons {
+                flex-direction: row;
+                /* Cambia a disposición horizontal en pantallas más grandes */
+                gap: 20px;
+                /* Ajusta el espacio entre botones para pantallas grandes */
+            }
+
+            .buttons a {
+                width: auto;
+                /* Vuelve a su tamaño automático en pantallas grandes */
+            }
         }
     </style>
 </head>
