@@ -194,12 +194,12 @@ body {
 }
 
 ::selection {
-  background: #ff589e;
+  background: #0A2472;
   color: #fff;
 }
 
 ::-moz-selection {
-  background: #ff589e;
+  background: #0A2472;
   color: #fff;
 }
 
@@ -210,7 +210,7 @@ body {
 }
 
 .section.colored {
-  background: #f2f2fe;
+  background: #E8F1F2;
 }
 
 .hr {
@@ -289,7 +289,7 @@ body {
 }
 
 .left-text p.dark {
-  color: #3B566E;
+  color: #0A2472;
 }
 
 .padding-bottom-top-60 {
@@ -400,7 +400,7 @@ a.main-button-slider {
   font-size: 13px;
   border-radius: 20px;
   padding: 12px 20px;
-  background-color: #ff589e;
+  background-color: #0A2472;
   text-transform: uppercase;
   color: #fff;
   letter-spacing: 0.25px;
@@ -411,14 +411,14 @@ a.main-button-slider {
 }
 
 a.main-button-slider:hover {
-  background-color: #8261ee;
+  background-color: #189AB4;
 }
 
 a.main-button {
   font-size: 13px;
   border-radius: 20px;
   padding: 12px 20px;
-  background-color: #8261ee;
+  background-color: #189AB4;
   text-transform: uppercase;
   color: #fff;
   letter-spacing: 0.25px;
@@ -429,7 +429,7 @@ a.main-button {
 }
 
 a.main-button:hover {
-  background-color: #ff589e;
+  background-color: #0A2472;
 }
 
 button.main-button {
@@ -439,7 +439,7 @@ button.main-button {
   font-size: 13px;
   border-radius: 20px;
   padding: 12px 20px;
-  background-color: #8261ee;
+  background-color: #189AB4;
   text-transform: uppercase;
   color: #fff;
   letter-spacing: 0.25px;
@@ -450,7 +450,7 @@ button.main-button {
 }
 
 button.main-button:hover {
-  background-color: #ff589e;
+  background-color: #0A2472;
 }
 
 
@@ -534,7 +534,7 @@ header
 }
 
 .header-area .main-nav .nav li a:hover {
-  color: #ff589e;
+  color: #0A2472;
 }
 
 .header-area .main-nav .menu-trigger {
@@ -557,7 +557,7 @@ header
   -o-transition: all 0.4s;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-  background-color: #3B566E;
+  background-color: #0A2472;
   display: block;
   position: absolute;
   width: 30px;
@@ -571,7 +571,7 @@ header
   -o-transition: all 0.4s;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-  background-color: #3B566E;
+  background-color: #0A2472;
   display: block;
   position: absolute;
   width: 30px;
@@ -618,7 +618,7 @@ header
   -ms-transform: translateY(6px) translateX(1px) rotate(45deg);
   -webkit-transform: translateY(6px) translateX(1px) rotate(45deg);
   transform: translateY(6px) translateX(1px) rotate(45deg);
-  background-color: #3B566E;
+  background-color: #0A2472;
 }
 
 .header-area .main-nav .menu-trigger.active span:after {
@@ -626,7 +626,7 @@ header
   -ms-transform: translateY(-6px) translateX(1px) rotate(-45deg);
   -webkit-transform: translateY(-6px) translateX(1px) rotate(-45deg);
   transform: translateY(-6px) translateX(1px) rotate(-45deg);
-  background-color: #3B566E;
+  background-color: #0A2472;
 }
 
 .header-area.header-sticky {
@@ -646,7 +646,7 @@ header
 }
 
 .header-area.header-sticky .nav li a.active {
-  color: #ff589e;
+  color: #0A2472;
 }
 
 @media (max-width: 1200px) {
@@ -715,7 +715,7 @@ header
     padding: 0px !important;
     border: none !important;
     background: #fff !important;
-    color: #3B566E !important;
+    color: #0A2472 !important;
   }
 
   .header-area .main-nav .nav li a:hover {
@@ -745,6 +745,22 @@ welcome
   background-position: center center;
   background-size: cover;
   height: 100vh;
+}
+
+.banner {
+  position: relative;
+  background-image: url("../images/banner-bg.png");
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 36, 114, 0.7);
+  /* Azul AutoStock con 70% de opacidad */
 }
 
 .welcome-area .header-text {
@@ -875,7 +891,7 @@ features
 }
 
 .features-small-item:hover .icon {
-  background-color: #ff589e;
+  background-color: #0A2472;
 }
 
 .features-small-item .icon {
@@ -889,7 +905,7 @@ features
   margin: auto;
   position: relative;
   margin-bottom: 30px;
-  background: #8261ee;
+  background: #189AB4;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -1289,7 +1305,7 @@ team
   display: block;
   font-weight: 400;
   font-size: 15px;
-  color: #ff589e;
+  color: #0A2472;
   letter-spacing: 0.25px;
 }
 
@@ -1328,7 +1344,7 @@ pricing
 }
 
 .pricing-item.active .pricing-body .price-wrapper {
-  background-color: #ff589e;
+  background-color: #0A2472;
 }
 
 .pricing-item.active .pricing-body .price-wrapper .currency {
@@ -1371,7 +1387,7 @@ pricing
   text-align: center;
   padding-top: 20px;
   padding-bottom: 13px;
-  background: #8261ee;
+  background: #189AB4;
   width: 80%;
   margin: auto;
   margin-bottom: 40px;
@@ -1465,7 +1481,7 @@ blog
 }
 
 .blog-post-thumb h3 a:hover {
-  color: #ff589e;
+  color: #0A2472;
 }
 
 .blog-post-thumb .text {
@@ -1556,7 +1572,7 @@ footer
 --------------------------------------------- 
 */
 footer {
-  background-image: linear-gradient(127deg, #a759d1 0%, #8261ee 91%);
+  background-image: linear-gradient(127deg, #0A2472 0%, #189AB4 91%);
   padding-top: 30px;
 }
 
@@ -1588,7 +1604,7 @@ footer .social li a {
 }
 
 footer .social li a:hover {
-  background-color: #ff589e;
+  background-color: #0A2472;
   color: #fff;
 }
 
@@ -1626,7 +1642,7 @@ preloader
 */
 #preloader {
   overflow: hidden;
-  background-image: linear-gradient(135deg, #a759d1 0%, #8261ee 100%);
+  background-image: linear-gradient(135deg, #0A2472 0%, #189AB4 100%);
   left: 0;
   right: 0;
   top: 0;
