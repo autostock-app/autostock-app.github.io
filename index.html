@@ -341,6 +341,172 @@ https://templatemo.com/tm-535-softy-pinko
         }
 
         /* Remove fallback button styles */
+
+        /* ================= Contact form enhancements ================= */
+        #contact-us .contact-form {
+            position: relative;
+        }
+
+        #contact-us .contact-form form {
+            transition: opacity .4s ease, transform .45s ease;
+        }
+
+        #contact-us .contact-form .status-bar {
+            margin-top: 16px;
+            min-height: 24px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        #contact-us .contact-form .status-bar[aria-live] {
+            outline: 0;
+        }
+
+        #contact-us .contact-form .status-bar .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(0, 0, 0, .15);
+            border-top-color: #ff589e;
+            border-radius: 50%;
+            animation: spin .9s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #contact-us .contact-form .hp-field {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #contact-us .contact-form.sent form {
+            opacity: 0;
+            transform: scale(.98);
+            pointer-events: none;
+        }
+
+        #contact-us .contact-form .success-panel {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 18px;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, .18);
+            opacity: 0;
+            transform: scale(.95);
+            pointer-events: none;
+            transition: opacity .55s cubic-bezier(.45, .65, .35, 1), transform .55s cubic-bezier(.45, .65, .35, 1);
+        }
+
+        #contact-us .contact-form.sent .success-panel {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        #contact-us .contact-form .success-panel .icon-check {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2ecc71, #25b864);
+            /* verde éxito */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 34px;
+            box-shadow: 0 10px 28px -8px rgba(46, 204, 113, .45);
+            margin-bottom: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact-us .contact-form .success-panel .icon-check:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .35), transparent 60%);
+            mix-blend-mode: overlay;
+        }
+
+        #contact-us .contact-form .success-panel h4 {
+            font-size: 20px;
+            margin: 0 0 8px;
+        }
+
+        #contact-us .contact-form .success-panel p {
+            font-size: 14px;
+            margin: 0;
+            color: #555;
+        }
+
+        #contact-us .contact-form .success-panel .again-btn {
+            margin-top: 22px;
+            background: #2f73ff;
+            background: linear-gradient(135deg, #4b8dff, #1f5fd9);
+            color: #fff;
+            border: 0;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 28px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px -6px rgba(56, 115, 255, .55);
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        #contact-us .contact-form .success-panel .again-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px -8px rgba(56, 115, 255, .6);
+        }
+
+        #contact-us .contact-form .success-panel .again-btn:active {
+            transform: translateY(0);
+        }
+
+        #contact-us .contact-form .error {
+            color: #c62828;
+        }
+
+        #contact-us .contact-form .ok {
+            color: #1b5e20;
+        }
+
+        #contact-us .contact-form button[disabled] {
+            opacity: .7;
+            cursor: not-allowed;
+        }
+
+        @media (max-width:575.98px) {
+            #contact-us .contact-form .success-panel {
+                position: static;
+                transform: none;
+                opacity: 1;
+                display: none;
+                box-shadow: none;
+                border: 0;
+                background: transparent;
+                padding: 0;
+            }
+
+            #contact-us .contact-form.sent .success-panel {
+                display: flex;
+            }
+        }
     </style>
 
 </head>
@@ -661,6 +827,9 @@ https://templatemo.com/tm-535-softy-pinko
                 <div class="col-lg-8 col-md-6 col-sm-12">
                     <div class="contact-form">
                         <form id="contact" action="" method="get">
+                            <!-- Honeypot anti-bot field (no borrar). Si se llena => se aborta sin llamar Lambda -->
+                            <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off"
+                                aria-hidden="true">
                             <div class="row">
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <fieldset>
@@ -682,12 +851,19 @@ https://templatemo.com/tm-535-softy-pinko
                                 </div>
                                 <div class="col-lg-12">
                                     <fieldset>
-                                        <button type="submit" id="form-submit" class="main-button">Enviar
-                                            mensaje</button>
+                                        <button type="submit" id="form-submit" class="main-button"
+                                            data-default-text="Enviar mensaje">Enviar mensaje</button>
                                     </fieldset>
                                 </div>
                             </div>
+                            <div class="status-bar" id="contactStatus" aria-live="polite"></div>
                         </form>
+                        <div class="success-panel" aria-hidden="true" id="contactSuccessPanel">
+                            <div class="icon-check"><i class="fa fa-check" aria-hidden="true"></i></div>
+                            <h4>Mensaje enviado</h4>
+                            <p>Gracias por contactarnos. Te responderemos lo antes posible.</p>
+                            <button type="button" class="again-btn" id="contactAgainBtn">Enviar otro mensaje</button>
+                        </div>
                     </div>
                 </div>
                 <!-- ***** Contact Form End ***** -->
@@ -771,6 +947,142 @@ https://templatemo.com/tm-535-softy-pinko
             var ua = navigator.userAgent || '';
             if (/Android/i.test(ua)) select('android'); else select('ios');
             window.addEventListener('resize', function () { moveSlider(document.querySelector('#download .segmented button.active')); });
+        })();
+
+        // ================= Contact form submission / bot protection =================
+        (function () {
+            var form = document.getElementById('contact');
+            if (!form) return;
+            var statusEl = document.getElementById('contactStatus');
+            var btn = document.getElementById('form-submit');
+            var successPanel = document.getElementById('contactSuccessPanel');
+            var againBtn = document.getElementById('contactAgainBtn');
+            var loadTs = Date.now();
+            var RATE_LIMIT_SECONDS = 60; // enfriar 1 minuto
+            var MIN_DELTA_MS = 1200; // mínimo 1.2s para considerar humano
+            // Endpoint de tu AWS Lambda (API Gateway). Reemplazar antes de producción.
+            // Ejemplo: https://abc123xyz.execute-api.us-east-1.amazonaws.com/prod/contact
+            var LAMBDA_ENDPOINT = 'https://REEMPLAZA-TU-ENDPOINT.execute-api.region.amazonaws.com/prod/contact';
+
+            function setStatus(html, cls) {
+                if (!statusEl) return;
+                statusEl.className = 'status-bar ' + (cls || '');
+                statusEl.innerHTML = html || '';
+            }
+            function disableForm(dis) {
+                if (dis) { btn.setAttribute('disabled', 'disabled'); } else { btn.removeAttribute('disabled'); }
+            }
+            function showSpinner() { btn.dataset.defaultText = btn.dataset.defaultText || btn.textContent; btn.innerHTML = '<span class="spinner"></span>Enviando...'; }
+            function restoreBtn() { if (btn.dataset.defaultText) btn.textContent = btn.dataset.defaultText; }
+            function markSent() { form.parentElement.classList.add('sent'); successPanel && successPanel.setAttribute('aria-hidden', 'false'); }
+            function resetForm() {
+                // Limpia campos y estados para permitir nuevo envío
+                form.parentElement.classList.remove('sent');
+                if (successPanel) successPanel.setAttribute('aria-hidden', 'true');
+                form.reset();
+                setStatus('', '');
+                restoreBtn();
+                disableForm(false);
+                loadTs = Date.now(); // reinicia temporizador para nueva medición delta
+            }
+            function humanFingerprint() {
+                var lang = (navigator.language || '').toLowerCase();
+                var tz = Intl && Intl.DateTimeFormat ? Intl.DateTimeFormat().resolvedOptions().timeZone : 'na';
+                var screenInfo = (screen ? [screen.width, screen.height, screen.colorDepth].join('x') : '');
+                return btoa([lang, tz, screenInfo].join('|')).replace(/=+$/, '');
+            }
+            function recentlySent() {
+                try {
+                    var last = parseInt(localStorage.getItem('contact_last_sent') || '0', 10);
+                    return (Date.now() - last) < RATE_LIMIT_SECONDS * 1000;
+                } catch (e) {
+                    console.warn('localStorage unavailable', e);
+                    return false;
+                }
+            }
+            function storeSent() {
+                try {
+                    localStorage.setItem('contact_last_sent', Date.now().toString());
+                } catch (e) {
+                    console.warn('No se pudo guardar rate limit', e);
+                }
+            }
+
+            form.addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                if (recentlySent()) { setStatus('Por favor espera unos segundos antes de enviar otro mensaje.', 'error'); return; }
+                var delta = Date.now() - loadTs;
+                var data = new FormData(form);
+                // Honeypot
+                if (data.get('company')) { // bot probable
+                    setStatus('Mensaje enviado.', 'ok'); // no llamamos lambda (tar pit)
+                    markSent();
+                    return;
+                }
+                var name = (data.get('name') || '').trim();
+                var email = (data.get('email') || '').trim();
+                var message = (data.get('message') || '').trim();
+                if (!name || !email || !message) { setStatus('Completa todos los campos.', 'error'); return; }
+                // Velocidad sospechosa -> simular éxito pero no mandar
+                if (delta < MIN_DELTA_MS) {
+                    setStatus('Mensaje enviado.', 'ok');
+                    markSent();
+                    return;
+                }
+                disableForm(true); showSpinner(); setStatus('', '');
+                var payload = {
+                    name: name,
+                    email: email,
+                    message: message,
+                    meta: {
+                        loadTimestamp: loadTs,
+                        submitTimestamp: Date.now(),
+                        deltaMs: delta,
+                        fingerprint: humanFingerprint(),
+                        userAgent: navigator.userAgent || ''
+                    }
+                };
+                // SIMULACIÓN: si el endpoint es placeholder o se fuerza con ?simulate=1
+                var forceSim = /[?&]simulate=1\b/.test(location.search);
+                if (LAMBDA_ENDPOINT.indexOf('REEMPLAZA-TU-ENDPOINT') !== -1 || forceSim) {
+                    console.info('[Contact] Simulando envío (modo demo)');
+                    setStatus('<span class="spinner"></span>Enviando...', '');
+                    setTimeout(function () {
+                        setStatus('Mensaje enviado correctamente. (simulación)', 'ok');
+                        markSent(); storeSent();
+                    }, 900 + Math.random() * 600);
+                    return; // no continúa a fetch real
+                }
+                // Timeout manual por si la lambda no responde
+                var aborted = false;
+                var timeout = setTimeout(function () { aborted = true; disableForm(false); restoreBtn(); setStatus('Tiempo de espera excedido, intenta nuevamente.', 'error'); }, 15000);
+                if (!/^https?:\/\//i.test(LAMBDA_ENDPOINT)) {
+                    disableForm(false); restoreBtn(); setStatus('Configuración incompleta del endpoint.', 'error'); return;
+                }
+                fetch(LAMBDA_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-Form-Delta': String(delta) },
+                    body: JSON.stringify(payload)
+                }).then(function (r) {
+                    if (aborted) return;
+                    clearTimeout(timeout);
+                    if (r.ok) {
+                        setStatus('Mensaje enviado correctamente.', 'ok');
+                        markSent(); storeSent();
+                    } else {
+                        return r.text().then(function (txt) { throw new Error(txt || ('HTTP ' + r.status)); });
+                    }
+                }).catch(function (err) {
+                    if (aborted) return;
+                    clearTimeout(timeout);
+                    disableForm(false); restoreBtn();
+                    setStatus('Error al enviar. Intenta más tarde.', 'error');
+                    console.error('Contact form error', err);
+                });
+            });
+            if (againBtn) {
+                againBtn.addEventListener('click', function () { resetForm(); });
+            }
         })();
     </script>
 
