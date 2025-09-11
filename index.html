@@ -92,11 +92,14 @@ https://templatemo.com/tm-535-softy-pinko
             display: flex;
             gap: 28px;
             justify-content: center;
-            align-items: stretch;
+            align-items: center; /* centrado vertical */
+            flex-wrap: nowrap;
+            /* Altura responsiva: reduce en anchos medios para evitar recortes */
+            --device-height: clamp(360px, 44vw, var(--device-height));
         }
 
         #download .dual-mockups .mock {
-            flex: 0 0 auto;
+            flex: 0 0 auto; /* evita que uno encoja más que el otro */
             position: relative;
             display: flex;
             align-items: center;
@@ -109,7 +112,7 @@ https://templatemo.com/tm-535-softy-pinko
         }
 
         #download .dual-mockups .mock img {
-            /* Fallback to --device-height if per-device variable not set */
+            /* Mantiene altura fija y respeta ancho máximo del contenedor */
             height: var(--device-height);
             width: auto;
             max-width: 100%;
@@ -157,9 +160,7 @@ https://templatemo.com/tm-535-softy-pinko
                 --device-height: 400px;
             }
 
-            #download .dual-mockups .mock img {
-                margin: 0 auto;
-            }
+            #download .dual-mockups .mock img { margin: 0 auto; }
         }
 
         /* === Embedded QR selector (replaces single universal QR) === */
@@ -345,6 +346,29 @@ https://templatemo.com/tm-535-softy-pinko
         /* ================= Contact form enhancements ================= */
         #contact-us .contact-form {
             position: relative;
+        }
+
+        /* === Equal heights for features (per row) === */
+        .home-feature .row>[class*='col-'] {
+            display: flex;
+        }
+
+        .home-feature .features-small-item {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+        }
+
+        .home-feature .features-small-item .icon {
+            flex: 0 0 auto;
+        }
+
+        .home-feature .features-small-item .features-title {
+            flex: 0 0 auto;
+        }
+
+        .home-feature .features-small-item p {
+            margin-top: auto;
         }
 
         #contact-us .contact-form form {
@@ -579,7 +603,7 @@ https://templatemo.com/tm-535-softy-pinko
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <!-- ***** Features Small Item Start ***** -->
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12"
                             data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
