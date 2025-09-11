@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description"
+        content="AutoStock: inventario en tiempo real para bares y discotecas. Registra cada botella al desecharla y reabastece con precisión para evitar pérdidas, ahorrar tiempo y reducir costos.">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
 
-    <title>Softy Pinko - Bootstrap 4.0 Theme</title>
+    <title>AutoStock — Inventario en tiempo real</title>
     <!--
 SOFTY PINKO
 https://templatemo.com/tm-535-softy-pinko
@@ -87,19 +88,18 @@ https://templatemo.com/tm-535-softy-pinko
 
         /* (Removed old QR grid & placeholder & phone-mockup styles no longer used) */
 
-        /* Dual mockups side-by-side */
-        #download .dual-mockups {
+        /* Inline: tarjeta QR + dos teléfonos, centrados y con separación */
+        #download .download-inline {
             display: flex;
-            gap: 28px;
+            align-items: center;
             justify-content: center;
-            align-items: center; /* centrado vertical */
+            gap: 28px;
             flex-wrap: nowrap;
-            /* Altura responsiva: reduce en anchos medios para evitar recortes */
-            --device-height: clamp(360px, 44vw, var(--device-height));
+            /* mantener en una fila en md/desktop */
         }
 
-        #download .dual-mockups .mock {
-            flex: 0 0 auto; /* evita que uno encoja más que el otro */
+        #download .download-inline .mock {
+            flex: 0 0 auto;
             position: relative;
             display: flex;
             align-items: center;
@@ -111,8 +111,8 @@ https://templatemo.com/tm-535-softy-pinko
             --device-height: 520px;
         }
 
-        #download .dual-mockups .mock img {
-            /* Mantiene altura fija y respeta ancho máximo del contenedor */
+        #download .download-inline .mock img {
+            /* Fallback to --device-height if per-device variable not set */
             height: var(--device-height);
             width: auto;
             max-width: 100%;
@@ -122,45 +122,49 @@ https://templatemo.com/tm-535-softy-pinko
         }
 
         /* Per-device overrides (optional) */
-        #download .dual-mockups .mock.ios img {
+        #download .download-inline .mock.ios img {
             height: var(--device-height-ios, var(--device-height));
         }
 
-        #download .dual-mockups .mock.android img {
+        #download .download-inline .mock.android img {
             height: var(--device-height-android, var(--device-height));
         }
 
         /* Quitar cualquier desplazamiento */
-        #download .dual-mockups .mock.ios,
-        #download .dual-mockups .mock.android {
+        #download .download-inline .mock.ios,
+        #download .download-inline .mock.android {
             transform: none;
         }
 
         @media (max-width: 991.98px) {
-
-            /* Bootstrap lg breakpoint */
-            #download .dual-mockups {
-                gap: 18px;
+            #download .download-inline {
+                gap: 20px;
             }
 
             :root {
-                --device-height: 460px;
+                --device-height: 340px;
+            }
+
+            #download .download-card {
+                max-width: 320px;
             }
         }
 
         @media (max-width: 575.98px) {
 
             /* xs */
-            #download .dual-mockups {
+            #download .download-inline {
                 flex-direction: column;
-                gap: 34px;
+                gap: 28px;
             }
 
             :root {
                 --device-height: 400px;
             }
 
-            #download .dual-mockups .mock img { margin: 0 auto; }
+            #download .download-inline .mock img {
+                margin: 0 auto;
+            }
         }
 
         /* === Embedded QR selector (replaces single universal QR) === */
@@ -175,6 +179,11 @@ https://templatemo.com/tm-535-softy-pinko
             /* más angosto */
             width: 100%;
             text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+            /* stay above mockups if they intersect */
         }
 
         #download .download-card h3 {
@@ -224,8 +233,8 @@ https://templatemo.com/tm-535-softy-pinko
         }
 
         #download.section {
-            padding-top: 90px;
-            padding-bottom: 90px;
+            padding-top: var(--section-pt, 90px);
+            padding-bottom: var(--section-pb, 90px);
         }
 
         @media (min-width:992px) {
@@ -346,6 +355,92 @@ https://templatemo.com/tm-535-softy-pinko
         /* ================= Contact form enhancements ================= */
         #contact-us .contact-form {
             position: relative;
+        }
+
+        /* === Equal heights for "Cómo funciona" mini boxes === */
+        #work-process .row.justify-content-center>[class*='col-'] {
+            display: flex;
+        }
+
+        #work-process .mini-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            /* ensure it stretches to match tallest sibling */
+            flex: 1 1 auto;
+        }
+
+        /* ===== Global spacing controls (per-section) ===== */
+        /* Default section padding; override with inline CSS vars per section */
+        .section {
+            padding-top: var(--section-pt, 100px);
+            padding-bottom: var(--section-pb, 100px);
+        }
+
+        @media (max-width: 991.98px) {
+            .section {
+                padding-top: var(--section-pt-md, var(--section-pt, 80px));
+                padding-bottom: var(--section-pb-md, var(--section-pb, 80px));
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .section {
+                padding-top: var(--section-pt-sm, var(--section-pt, 60px));
+                padding-bottom: var(--section-pb-sm, var(--section-pb, 60px));
+            }
+        }
+
+        /* Hero spacing + optional min-height control (reduce empty background) */
+        .welcome-area {
+            padding-top: var(--hero-pt, 140px);
+            padding-bottom: var(--hero-pb, 120px);
+            /* Override theme height if set */
+            height: var(--hero-height, auto);
+            min-height: var(--hero-min, 100vh);
+        }
+
+        @media (max-width: 575.98px) {
+            .welcome-area {
+                padding-top: var(--hero-pt-sm, var(--hero-pt, 100px));
+                padding-bottom: var(--hero-pb-sm, var(--hero-pb, 90px));
+                min-height: var(--hero-min-sm, var(--hero-min, 100vh));
+            }
+        }
+
+        /* Work-process container spacing */
+        .mini .mini-content {
+            padding-top: var(--mini-pt, 60px);
+            padding-bottom: var(--mini-pb, 60px);
+        }
+
+        /* Benefits section: pull up closer to the hero/white transition */
+        #beneficios.section {
+            --section-pt: 40px;
+            --section-pt-md: 32px;
+            --section-pt-sm: 22px;
+        }
+
+        /* Adjustable size for “Casos de uso” image */
+        #casos .cases-image {
+            width: 85%;
+            height: auto;
+            max-width: var(--casos-img-max, 520px);
+        }
+
+        @media (max-width: 991.98px) {
+            #casos .cases-image {
+                max-width: var(--casos-img-max-md, 460px);
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            #casos .cases-image {
+                max-width: var(--casos-img-max-sm, 360px);
+            }
         }
 
         /* === Equal heights for features (per row) === */
@@ -561,11 +656,12 @@ https://templatemo.com/tm-535-softy-pinko
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li><a href="#welcome" class="active">Home</a></li>
-                            <li><a href="#features">Sobre AutoStock</a></li>
-                            <li><a href="#work-process">Como funciona</a></li>
+                            <li><a href="#welcome" class="active">Inicio</a></li>
+                            <li><a href="#beneficios">Beneficios</a></li>
+                            <li><a href="#work-process">Cómo funciona</a></li>
+                            <li><a href="#casos">Casos de uso</a></li>
                             <li><a href="#download">Descargar app</a></li>
-                            <li><a href="#contact-us">Contactanos</a></li>
+                            <li><a href="#contact-us">Contáctanos</a></li>
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -579,17 +675,18 @@ https://templatemo.com/tm-535-softy-pinko
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Welcome Area Start ***** -->
-    <div class="welcome-area" id="welcome">
+    <div class="welcome-area" id="welcome"
+        style="--hero-min: 78vh; --hero-pt: 100px; --hero-pb: 60px; --hero-min-sm: 72vh; --hero-pt-sm: 80px; --hero-pb-sm: 40px;">
 
         <!-- ***** Header Text Start ***** -->
         <div class="header-text">
             <div class="container">
                 <div class="row">
                     <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
-                        <h1>Automatiza y optimiza tu <strong>inventario</strong><br>con <strong>AutoStock</strong></h1>
-                        <p>La solución inteligente para la gestión de stock. Predice la demanda, reduce costos y mejora
-                            la eficiencia.</p>
-                        <a href="#features" class="main-button-slider">Descubre cómo funciona</a>
+                        <h1>Inventario en <strong>tiempo real</strong><br>sin <strong>esfuerzo</strong></h1>
+                        <p>AutoStock combina un bote inteligente y una app que registran cada botella desechada para
+                            mantener tu inventario actualizado automáticamente.</p>
+                        <a href="#contact-us" class="main-button-slider">Solicitar demo</a>
                     </div>
                 </div>
             </div>
@@ -599,49 +696,46 @@ https://templatemo.com/tm-535-softy-pinko
     <!-- ***** Welcome Area End ***** -->
 
     <!-- ***** Features Small Start ***** -->
-    <section class="section home-feature">
+    <!-- Ajustes por sección: cambia estos valores para mover el contenido arriba/abajo -->
+    <section class="section home-feature" id="beneficios"
+        style="--section-pt: 40px; --section-pb: 80px; --section-pt-md: 32px; --section-pb-md: 60px; --section-pt-sm: 22px; --section-pb-sm: 48px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row justify-content-center">
-                        <!-- ***** Features Small Item Start ***** -->
+                        <!-- ***** Beneficio 1 ***** -->
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12"
                             data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
                             <div class="features-small-item">
                                 <div class="icon">
                                     <i><img src="assets/images/featured-item-01.png" alt=""></i>
                                 </div>
-                                <h5 class="features-title">Optimización Inteligente</h5>
-                                <p>Predice la demanda y ajusta tu inventario automáticamente.</p>
+                                <h5 class="features-title">Evita pérdidas</h5>
+                                <p>Visibilidad instantánea de lo que se desecha y cuándo.</p>
                             </div>
                         </div>
-                        <!-- ***** Features Small Item End ***** -->
-
-                        <!-- ***** Features Small Item Start ***** -->
+                        <!-- ***** Beneficio 2 ***** -->
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12"
                             data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
                             <div class="features-small-item">
                                 <div class="icon">
                                     <i><img src="assets/images/featured-item-01.png" alt=""></i>
                                 </div>
-                                <h5 class="features-title">Gestión Eficiente</h5>
-                                <p>Evita quiebres de stock y sobrealmacenamiento con ajustes automáticos.</p>
+                                <h5 class="features-title">Ahorra tiempo</h5>
+                                <p>Inventarios automáticos sin cierres eternos ni conteos manuales.</p>
                             </div>
                         </div>
-                        <!-- ***** Features Small Item End ***** -->
-
-                        <!-- ***** Features Small Item Start ***** -->
+                        <!-- ***** Beneficio 3 ***** -->
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12"
                             data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
                             <div class="features-small-item">
                                 <div class="icon">
                                     <i><img src="assets/images/featured-item-01.png" alt=""></i>
                                 </div>
-                                <h5 class="features-title">Integración Flexible</h5>
-                                <p>Conéctate fácilmente con tu ERP o plataforma de ventas.</p>
+                                <h5 class="features-title">Reduce costos</h5>
+                                <p>Pedidos precisos y reabastecimiento basado en datos reales.</p>
                             </div>
                         </div>
-                        <!-- ***** Features Small Item End ***** -->
                     </div>
                 </div>
             </div>
@@ -650,21 +744,32 @@ https://templatemo.com/tm-535-softy-pinko
     <!-- ***** Features Small End ***** -->
 
     <!-- ***** Features Big Item Start ***** -->
-    <section class="section padding-top-70 padding-bottom-0" id="features">
+    <section class="section padding-top-70 padding-bottom-0" id="casos"
+        style="--section-pt: 60px; --section-pb: 60px; --section-pt-md: 48px; --section-pb-md: 48px; --section-pt-sm: 36px; --section-pb-sm: 36px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-sm-12 align-self-center"
                     data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                    <img src="assets/images/left-image.png" class="rounded img-fluid d-block mx-auto" alt="App">
+                    <img src="assets/images/cubo.png" class="rounded img-fluid d-block mx-auto cases-image" alt="App">
                 </div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-top-fix">
                     <div class="left-heading">
-                        <h2 class="section-title">Let's discuss about you project</h2>
+                        <h2 class="section-title">Resultados y casos de uso</h2>
                     </div>
                     <div class="left-text">
-                        <p>Optimiza la gestión de tu inventario con predicciones precisas y automatización inteligente.
-                            AutoStock te ayuda a reducir costos y mejorar la eficiencia operativa.</p>
+                        <p>
+                            AutoStock ofrece control con datos reales en distintos contextos:
+                        </p>
+                        <ul>
+                            <li><strong>Bares y discotecas:</strong> control al cierre con datos del día; decisiones de
+                                compra más rápidas.</li>
+                            <li><strong>Hoteles y restaurantes:</strong> múltiples barras sincronizadas; menos quiebres
+                                entre puntos de venta.</li>
+                            <li><strong>Eventos y festivales:</strong> ajustes por locación en tiempo real; mejor
+                                planificación de reabastecimiento.</li>
+                        </ul>
+                        <p class="mt-3">Integración con ERP/POS y exportación CSV/API disponibles.</p>
                     </div>
                 </div>
             </div>
@@ -677,41 +782,18 @@ https://templatemo.com/tm-535-softy-pinko
     </section>
     <!-- ***** Features Big Item End ***** -->
 
-    <!-- ***** Features Big Item Start ***** -->
-    <section class="section padding-bottom-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-bottom-fix">
-                    <div class="left-heading">
-                        <h2 class="section-title">We can help you to grow your business</h2>
-                    </div>
-                    <div class="left-text">
-                        <p>AutoStock se integra fácilmente con tu sistema actual, permitiéndote tomar decisiones basadas
-                            en datos
-                            y evitar problemas de sobrealmacenamiento o quiebres de stock.</p>
-                    </div>
-                </div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-5 col-md-12 col-sm-12 align-self-center mobile-bottom-fix-big"
-                    data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
-                    <img src="assets/images/right-image.png" class="rounded img-fluid d-block mx-auto" alt="App">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Features Big Item End ***** -->
+
 
     <!-- ***** Home Parallax Start ***** -->
-    <section class="mini" id="work-process">
+    <section class="mini" id="work-process" style="--mini-pt: 50px; --mini-pb: 50px;">
         <div class="mini-content">
             <div class="container">
                 <div class="row">
                     <div class="offset-lg-3 col-lg-6">
                         <div class="info">
                             <h1>Cómo funciona</h1>
-                            <p>AutoStock analiza tu historial de ventas y patrones de demanda para hacer recomendaciones
-                                precisas.
-                                Ajusta tu inventario automáticamente y evita pérdidas.</p>
+                            <p>Registra cada botella al desecharla y mantén tu inventario actualizado automáticamente.
+                                Decide compras con datos en tiempo real.</p>
                         </div>
                     </div>
                 </div>
@@ -721,22 +803,22 @@ https://templatemo.com/tm-535-softy-pinko
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="assets/images/work-process-item-01.png" alt=""></i>
-                            <strong>Escanea</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <strong>Deposita y detecta</strong>
+                            <span>Lectores 360° en la apertura identifican el código desde varios ángulos.</span>
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="assets/images/work-process-item-01.png" alt=""></i>
-                            <strong>Visualiza</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <strong>Registra y sincroniza</strong>
+                            <span>Producto, fecha y hora se envían a la app en tiempo real.</span>
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="assets/images/work-process-item-01.png" alt=""></i>
-                            <strong>Haz pedido</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <strong>Reabastece con precisión</strong>
+                            <span>Pedidos sugeridos por rotación y umbrales configurables.</span>
                         </a>
                     </div>
                 </div>
@@ -749,67 +831,61 @@ https://templatemo.com/tm-535-softy-pinko
 
 
     <!-- ***** Download App Start ***** -->
-    <section class="section colored" id="download">
+    <section class="section colored" id="download"
+        style="--section-pt: 80px; --section-pb: 80px; --section-pt-md: 64px; --section-pb-md: 64px; --section-pt-sm: 48px; --section-pb-sm: 48px;">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.3s">
-                    <div class="download-card">
-                        <h3>Instala la App</h3>
-                        <p class="desc">Escanea el código o abre la tienda correspondiente para instalar AutoStock.</p>
-                        <div class="store-badges">
-                            <a href="https://apps.apple.com/fr/app/auto-stock/id6710699044?l=en-GB"
-                                class="store-badge app-store" aria-label="Disponible en App Store" target="_blank"
-                                rel="noopener">
-                                <i class="fa fa-apple" aria-hidden="true"></i>
-                                <span class="badge-text"><small>Disponible en</small><strong>App Store</strong></span>
-                            </a>
-                            <a href="https://play.google.com/store/apps/details?id=com.autostock.autostock.app&hl=es"
-                                class="store-badge google-play" aria-label="Disponible en Google Play" target="_blank"
-                                rel="noopener">
-                                <img src="assets/images/gplay.svg" alt="Google Play" width="28" height="28">
-                                <span class="badge-text"><small>Disponible en</small><strong>Google Play</strong></span>
-                            </a>
-                        </div>
-                        <div class="qr-selector-wrapper" aria-label="Selecciona QR por plataforma">
-                            <div class="qr-head">
-                                <strong>Descarga con código QR</strong>
-                                <div class="segmented" role="tablist" aria-label="Elegir plataforma">
-                                    <span class="segmented__slider" aria-hidden="true"></span>
-                                    <button id="qrTabIos" class="active" role="tab" aria-selected="true"
-                                        aria-controls="qrPanelIos"><i class="fa fa-apple"
-                                            aria-hidden="true"></i><span>iOS</span></button>
-                                    <button id="qrTabAndroid" role="tab" aria-selected="false"
-                                        aria-controls="qrPanelAndroid"><i class="fa fa-android"
-                                            aria-hidden="true"></i><span>Android</span></button>
-                                </div>
-                            </div>
-                            <div class="qr-panels">
-                                <div id="qrPanelIos" class="qr-box" role="tabpanel" aria-labelledby="qrTabIos">
-                                    <img id="qrImgIos" src="assets/images/ios-qr.svg"
-                                        alt="Código QR App Store AutoStock" loading="lazy" />
-                                </div>
-                                <div id="qrPanelAndroid" class="qr-box hidden" role="tabpanel"
-                                    aria-labelledby="qrTabAndroid">
-                                    <img id="qrImgAndroid" src="assets/images/android-qr.svg"
-                                        alt="Código QR Google Play AutoStock" loading="lazy" />
-                                </div>
-                            </div>
-                            <div class="qr-caption-alt">Escanea el código de tu plataforma preferida.</div>
-                        </div><!-- qr selector wrapper -->
-                    </div><!-- download-card -->
-                </div>
-                <div class="col-lg-6 col-md-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.3s">
-                    <div class="dual-mockups" style="--device-height-ios:520px; --device-height-android:560px;">
-                        <div class="mock ios">
-                            <!-- Reemplaza la imagen por tu mockup (iPhone) -->
-                            <img src="assets/images/iphone.png" alt="Vista previa iOS de AutoStock" loading="lazy" />
-                        </div>
-                        <div class="mock android">
-                            <!-- Reemplaza la imagen por tu mockup (Android) -->
-                            <img src="assets/images/android.png" alt="Vista previa Android de AutoStock"
-                                loading="lazy" />
-                        </div>
+            <div class="download-inline">
+                <div class="download-card">
+                    <h3>Instala la App</h3>
+                    <p class="desc">Escanea el código o abre la tienda correspondiente para instalar AutoStock.</p>
+                    <div class="store-badges">
+                        <a href="https://apps.apple.com/fr/app/auto-stock/id6710699044?l=en-GB"
+                            class="store-badge app-store" aria-label="Disponible en App Store" target="_blank"
+                            rel="noopener">
+                            <i class="fa fa-apple" aria-hidden="true"></i>
+                            <span class="badge-text"><small>Disponible en</small><strong>App Store</strong></span>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.autostock.autostock.app&hl=es"
+                            class="store-badge google-play" aria-label="Disponible en Google Play" target="_blank"
+                            rel="noopener">
+                            <img src="assets/images/gplay.svg" alt="Google Play" width="28" height="28">
+                            <span class="badge-text"><small>Disponible en</small><strong>Google Play</strong></span>
+                        </a>
                     </div>
+                    <div class="qr-selector-wrapper" aria-label="Selecciona QR por plataforma">
+                        <div class="qr-head">
+                            <strong>Descarga con código QR</strong>
+                            <div class="segmented" role="tablist" aria-label="Elegir plataforma">
+                                <span class="segmented__slider" aria-hidden="true"></span>
+                                <button id="qrTabIos" class="active" role="tab" aria-selected="true"
+                                    aria-controls="qrPanelIos"><i class="fa fa-apple"
+                                        aria-hidden="true"></i><span>iOS</span></button>
+                                <button id="qrTabAndroid" role="tab" aria-selected="false"
+                                    aria-controls="qrPanelAndroid"><i class="fa fa-android"
+                                        aria-hidden="true"></i><span>Android</span></button>
+                            </div>
+                        </div>
+                        <div class="qr-panels">
+                            <div id="qrPanelIos" class="qr-box" role="tabpanel" aria-labelledby="qrTabIos">
+                                <img id="qrImgIos" src="assets/images/ios-qr.svg" alt="Código QR App Store AutoStock"
+                                    loading="lazy" />
+                            </div>
+                            <div id="qrPanelAndroid" class="qr-box hidden" role="tabpanel"
+                                aria-labelledby="qrTabAndroid">
+                                <img id="qrImgAndroid" src="assets/images/android-qr.svg"
+                                    alt="Código QR Google Play AutoStock" loading="lazy" />
+                            </div>
+                        </div>
+                        <div class="qr-caption-alt">Escanea el código de tu plataforma preferida.</div>
+                    </div><!-- qr selector wrapper -->
+                </div><!-- download-card -->
+                <div class="mock ios" style="--device-height-ios:520px;">
+                    <!-- Reemplaza la imagen por tu mockup (iPhone) -->
+                    <img src="assets/images/iphone.png" alt="Vista previa iOS de AutoStock" loading="lazy" />
+                </div>
+                <div class="mock android" style="--device-height-android:560px;">
+                    <!-- Reemplaza la imagen por tu mockup (Android) -->
+                    <img src="assets/images/android.png" alt="Vista previa Android de AutoStock" loading="lazy" />
                 </div>
             </div>
         </div>
@@ -817,7 +893,8 @@ https://templatemo.com/tm-535-softy-pinko
     <!-- ***** Download App End ***** -->
 
     <!-- ***** Contact Us Start ***** -->
-    <section class="section colored" id="contact-us">
+    <section class="section colored" id="contact-us"
+        style="--section-pt: 80px; --section-pb: 80px; --section-pt-md: 64px; --section-pb-md: 64px; --section-pt-sm: 48px; --section-pb-sm: 48px;">
         <div class="container">
             <!-- ***** Section Title Start ***** -->
             <div class="row">
