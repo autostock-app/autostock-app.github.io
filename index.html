@@ -1361,14 +1361,22 @@ https://templatemo.com/tm-535-softy-pinko
             }
             function select(kind) {
                 var ios = kind === 'ios';
-                el.tabIos.classList.toggle('active', ios);
-                el.tabIos.setAttribute('aria-selected', ios);
-                el.tabAndroid.classList.toggle('active', !ios);
-                el.tabAndroid.setAttribute('aria-selected', !ios);
-                el.panelIos.classList.toggle('hidden', !ios);
-                el.panelAndroid.classList.toggle('hidden', ios);
-                el.panelIos.classList.toggle('active', ios);
-                el.panelAndroid.classList.toggle('active', !ios);
+                if (el.tabIos) {
+                    el.tabIos.classList.toggle('active', ios);
+                    el.tabIos.setAttribute('aria-selected', ios);
+                }
+                if (el.tabAndroid) {
+                    el.tabAndroid.classList.toggle('active', !ios);
+                    el.tabAndroid.setAttribute('aria-selected', !ios);
+                }
+                if (el.panelIos) {
+                    el.panelIos.classList.toggle('hidden', !ios);
+                    el.panelIos.classList.toggle('active', ios);
+                }
+                if (el.panelAndroid) {
+                    el.panelAndroid.classList.toggle('hidden', ios);
+                    el.panelAndroid.classList.toggle('active', !ios);
+                }
                 moveSlider(ios ? el.tabIos : el.tabAndroid);
             }
             if (el.tabIos) el.tabIos.addEventListener('click', function () { select('ios'); });
@@ -1387,13 +1395,15 @@ https://templatemo.com/tm-535-softy-pinko
             var btn = document.getElementById('form-submit');
             var successPanel = document.getElementById('contactSuccessPanel');
             var againBtn = document.getElementById('contactAgainBtn');
+            var msgEl = document.getElementById('message');
+            var counterEl = document.getElementById('messageCounter');
             var loadTs = Date.now();
             var RATE_LIMIT_SECONDS = 60; // enfriar 1 minuto
             var MIN_DELTA_MS = 1200; // mínimo 1.2s para considerar humano
             // Endpoint de tu AWS Lambda (API Gateway). Reemplaza la URL cuando lo tengas listo.
             // Debe responder con status 200 para considerarse éxito.
             // Ejemplo: https://abc123xyz.execute-api.us-east-1.amazonaws.com/prod/contact
-            var LAMBDA_ENDPOINT = 'https://REEMPLAZA-TU-ENDPOINT.execute-api.region.amazonaws.com/prod/contact';
+            var LAMBDA_ENDPOINT = (window.AUTOSTOCK_CONTACT_ENDPOINT || 'https://REEMPLAZA-TU-ENDPOINT.execute-api.region.amazonaws.com/prod/contact');
 
             function setStatus(html, cls) {
                 if (!statusEl) return;
@@ -1415,12 +1425,8 @@ https://templatemo.com/tm-535-softy-pinko
                 restoreBtn();
                 disableForm(false);
                 loadTs = Date.now(); // reinicia temporizador para nueva medición delta
-            }
-            function humanFingerprint() {
-                var lang = (navigator.language || '').toLowerCase();
-                var tz = Intl && Intl.DateTimeFormat ? Intl.DateTimeFormat().resolvedOptions().timeZone : 'na';
-                var screenInfo = (screen ? [screen.width, screen.height, screen.colorDepth].join('x') : '');
-                return btoa([lang, tz, screenInfo].join('|')).replace(/=+$/, '');
+                // reinicia contador
+                if (msgEl && counterEl) updateCounter();
             }
             function recentlySent() {
                 try {
@@ -1437,6 +1443,18 @@ https://templatemo.com/tm-535-softy-pinko
                 } catch (e) {
                     console.warn('No se pudo guardar rate limit', e);
                 }
+            }
+
+            // Contador de caracteres del mensaje
+            function updateCounter() {
+                if (!msgEl || !counterEl) return;
+                var max = parseInt(msgEl.getAttribute('maxlength') || '500', 10);
+                var len = (msgEl.value || '').length;
+                counterEl.textContent = len + '/' + max;
+            }
+            if (msgEl) {
+                msgEl.addEventListener('input', updateCounter);
+                updateCounter();
             }
 
             form.addEventListener('submit', function (ev) {
@@ -1461,18 +1479,8 @@ https://templatemo.com/tm-535-softy-pinko
                     return;
                 }
                 disableForm(true); showSpinner(); setStatus('', '');
-                var payload = {
-                    name: name,
-                    email: email,
-                    message: message,
-                    meta: {
-                        loadTimestamp: loadTs,
-                        submitTimestamp: Date.now(),
-                        deltaMs: delta,
-                        fingerprint: humanFingerprint(),
-                        userAgent: navigator.userAgent || ''
-                    }
-                };
+                // Payload simplificado para Lambda
+                var payload = { name: name, email: email, message: message };
                 // SIMULACIÓN: si el endpoint es placeholder o se fuerza con ?simulate=1
                 var forceSim = /[?&]simulate=1\b/.test(location.search);
                 if (LAMBDA_ENDPOINT.indexOf('REEMPLAZA-TU-ENDPOINT') !== -1 || forceSim) {
@@ -1500,7 +1508,7 @@ https://templatemo.com/tm-535-softy-pinko
                 }
                 fetch(LAMBDA_ENDPOINT, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-Form-Delta': String(delta) },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 }).then(function (r) {
                     if (aborted) return;
