@@ -1340,6 +1340,12 @@ https://templatemo.com/tm-535-softy-pinko
     <!-- Global Init -->
     <script src="assets/js/custom.js"></script>
 
+    <!-- Endpoint real para el formulario de contacto -->
+    <script>
+        // Ajusta la URL si tu endpoint es distinto
+        window.AUTOSTOCK_CONTACT_ENDPOINT = 'https://wg3yf97ncd.execute-api.eu-west-3.amazonaws.com/getStoreId';
+    </script>
+
     <!-- QR selector logic -->
     <script>
         (function () {
@@ -1402,8 +1408,8 @@ https://templatemo.com/tm-535-softy-pinko
             var MIN_DELTA_MS = 1200; // mínimo 1.2s para considerar humano
             // Endpoint de tu AWS Lambda (API Gateway). Reemplaza la URL cuando lo tengas listo.
             // Debe responder con status 200 para considerarse éxito.
-            // Ejemplo: https://abc123xyz.execute-api.us-east-1.amazonaws.com/prod/contact
-            var LAMBDA_ENDPOINT = (window.AUTOSTOCK_CONTACT_ENDPOINT || 'https://REEMPLAZA-TU-ENDPOINT.execute-api.region.amazonaws.com/prod/contact');
+            // Endpoint real configurado arriba
+            var LAMBDA_ENDPOINT = "https://9rry6c9pq3.execute-api.eu-west-3.amazonaws.com/emailSender";
 
             function setStatus(html, cls) {
                 if (!statusEl) return;
@@ -1481,17 +1487,7 @@ https://templatemo.com/tm-535-softy-pinko
                 disableForm(true); showSpinner(); setStatus('', '');
                 // Payload simplificado para Lambda
                 var payload = { name: name, email: email, message: message };
-                // SIMULACIÓN: si el endpoint es placeholder o se fuerza con ?simulate=1
-                var forceSim = /[?&]simulate=1\b/.test(location.search);
-                if (LAMBDA_ENDPOINT.indexOf('REEMPLAZA-TU-ENDPOINT') !== -1 || forceSim) {
-                    console.info('[Contact] Simulando envío (modo demo)');
-                    setStatus('<span class="spinner"></span>Enviando...', '');
-                    setTimeout(function () {
-                        setStatus('Mensaje enviado correctamente. (simulación)', 'ok');
-                        markSent(); storeSent();
-                    }, 900 + Math.random() * 600);
-                    return; // no continúa a fetch real
-                }
+                // Sin simulación: siempre intenta envío real
                 // Timeout manual por si la lambda no responde
                 var aborted = false;
                 var timeout = setTimeout(function () {
