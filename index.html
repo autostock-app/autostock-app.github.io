@@ -2,104 +2,1534 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autostock - Bienvenido</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="AutoStock: inventario en tiempo real para bares y discotecas. Registra cada botella al desecharla y reabastece con precisión para evitar pérdidas, ahorrar tiempo y reducir costos.">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
+
+    <title>AutoStock — Inventario en tiempo real</title>
+    <!--
+SOFTY PINKO
+https://templatemo.com/tm-535-softy-pinko
+-->
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+
+    <link rel="stylesheet" href="assets/css/templatemo-softy-pinko.css">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        .header {
-            background-color: #3A59BA;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #000;
-        }
-
-        p {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .buttons {
-            text-align: center;
+        /* Download section enhancements */
+        #download .store-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
             margin-top: 20px;
+        }
+
+        #download .store-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: #111;
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        #download .store-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, .2);
+        }
+
+        #download .store-badge i {
+            font-size: 28px;
+            line-height: 1;
+            display: inline-block;
+        }
+
+        #download .store-badge svg {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+        }
+
+        #download .store-badge .badge-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        #download .store-badge .badge-text small {
+            font-size: 10px;
+            opacity: .8;
+            letter-spacing: .4px;
+        }
+
+        #download .store-badge .badge-text strong {
+            font-size: 14px;
+        }
+
+        #download .store-badge.google-play i {
+            color: #34a853;
+        }
+
+        #download .store-badge.app-store i {
+            color: #fff;
+        }
+
+        /* (Removed old QR grid & placeholder & phone-mockup styles no longer used) */
+
+        /* Inline: tarjeta QR + dos teléfonos, centrados y con separación */
+        #download .download-inline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: nowrap;
+            /* mantener en una fila en md/desktop */
+        }
+
+        #download .download-inline .mock {
+            flex: 0 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Controla la altura deseada en desktop */
+        :root {
+            --device-height: 520px;
+        }
+
+        #download .download-inline .mock img {
+            /* Fallback to --device-height if per-device variable not set */
+            height: var(--device-height);
+            width: auto;
+            max-width: 100%;
+            display: block;
+            border-radius: 28px;
+            object-fit: contain;
+        }
+
+        /* Per-device overrides (optional) */
+        #download .download-inline .mock.ios img {
+            height: var(--device-height-ios, var(--device-height));
+        }
+
+        #download .download-inline .mock.android img {
+            height: var(--device-height-android, var(--device-height));
+        }
+
+        /* Quitar cualquier desplazamiento */
+        #download .download-inline .mock.ios,
+        #download .download-inline .mock.android {
+            transform: none;
+        }
+
+        @media (max-width: 991.98px) {
+
+            /* En tablet: permitir salto a dos filas y reducir tamaños */
+            #download .download-inline {
+                gap: 20px;
+                flex-wrap: wrap;
+                /* QR arriba, teléfonos abajo */
+            }
+
+            :root {
+                --device-height: 300px;
+                /* bajar altura de mockups en md */
+            }
+
+            #download .download-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+
+            /* xs */
+            #download .download-inline {
+                flex-direction: column;
+                gap: 28px;
+            }
+
+            :root {
+                --device-height: 400px;
+            }
+
+            #download .download-inline .mock img {
+                margin: 0 auto;
+            }
+        }
+
+        /* === Embedded QR selector (replaces single universal QR) === */
+        #download .qr-selector-wrapper {
+            margin-top: 22px;
+        }
+
+        /* Card contenedor para badges + QR */
+        #download .download-card {
+            border-radius: 30px;
+            max-width: 460px;
+            /* más angosto */
+            width: 100%;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+            /* stay above mockups if they intersect */
+        }
+
+        #download .download-card h3 {
+            font-size: 20px;
+            margin: 0 0 10px;
+            letter-spacing: .4px;
+        }
+
+        #download .download-card p.desc {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0 0 18px;
+            color: #444;
+        }
+
+        #download .download-card .store-badges {
+            margin-top: 0;
+            justify-content: center;
+        }
+
+        @media (max-width: 575.98px) {
+            #download .download-card {
+                padding: 26px 24px 34px;
+            }
+        }
+
+        #download .qr-head {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            /* Añade un espacio entre los botones */
         }
 
-        .buttons a {
+        #download .qr-head strong {
+            font-size: 16px;
+            letter-spacing: .4px;
+            display: block;
+        }
+
+        #download .qr-head .segmented {
+            margin-top: 4px;
+        }
+
+        /* Centrado vertical de tarjeta y mockups en desktop */
+        #download .row.align-items-center {
+            align-items: center;
+        }
+
+        #download.section {
+            padding-top: var(--section-pt, 90px);
+            padding-bottom: var(--section-pb, 90px);
+        }
+
+        @media (min-width:992px) {
+            #download .row.align-items-center {
+                min-height: 520px;
+            }
+        }
+
+        /* Nuevo switch neutro con slider */
+        #download .segmented {
+            position: relative;
+            display: inline-flex;
+            gap: 6px;
+            background: #f1f3f6;
+            border: 1px solid #d9dde2;
+            padding: 6px;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px -6px rgba(0, 0, 0, .18);
+        }
+
+        #download .segmented__slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            height: calc(100% - 8px);
+            width: 0;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px -6px rgba(0, 0, 0, .25);
+            transition: left .35s cubic-bezier(.45, .65, .35, 1), width .35s cubic-bezier(.45, .65, .35, 1);
+        }
+
+        #download .segmented button {
+            position: relative;
+            appearance: none;
+            border: 0;
+            background: transparent;
+            color: #4a5460;
+            padding: 8px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 12px;
+            transition: color .3s;
+        }
+
+        #download .segmented button.active {
+            color: #111;
+        }
+
+        #download .segmented button i {
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        #download .segmented button:focus-visible {
+            outline: 2px solid #2278ff;
+            outline-offset: 2px;
+        }
+
+        #download .segmented button:hover {
+            color: #222;
+        }
+
+        #download .qr-panels {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #download .qr-box {
+            width: 230px;
+            height: 230px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 1px solid #e2e5ec;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .08);
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow .35s, transform .45s;
+        }
+
+        #download .qr-box img {
+            width: 86%;
+            height: 86%;
+            object-fit: contain;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        #download .qr-box.active {
+            box-shadow: 0 10px 28px -8px rgba(0, 0, 0, .25), 0 4px 16px -6px rgba(0, 0, 0, .18);
+            transform: translateY(-2px);
+        }
+
+        #download .qr-box.hidden {
+            display: none !important;
+        }
+
+        #download .qr-caption-alt {
+            text-align: center;
+            font-size: 12.5px;
+            margin-top: 12px;
+            color: #555;
+        }
+
+        /* Remove fallback button styles */
+
+        /* ================= Contact form enhancements ================= */
+        #contact-us .contact-form {
+            position: relative;
+        }
+
+        /* === Equal heights for "Cómo funciona" mini boxes === */
+        #work-process .row.justify-content-center>[class*='col-'] {
+            display: flex;
+        }
+
+        #work-process .mini-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            /* ensure it stretches to match tallest sibling */
+            flex: 1 1 auto;
+        }
+
+        /* Cómo funciona: badges y bullets compactos */
+        #work-process .mini-box .step-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9abf, #ff589e);
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 10px;
+            box-shadow: 0 8px 18px -8px rgba(255, 88, 158, .7);
+        }
+
+        #work-process .mini-box .step-points {
+            margin: 10px 0 0;
+            padding: 0;
+            list-style: none;
+            text-align: left;
+            font-size: 13.5px;
+            line-height: 1.45;
+            max-width: 220px;
+        }
+
+        #work-process .mini-box .step-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        #work-process .mini-box .step-points li i {
+            color: #ff589e;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 2px;
+            flex: 0 0 auto;
+        }
+
+        /* ===== Global spacing controls (per-section) ===== */
+        /* Default section padding; override with inline CSS vars per section */
+        .section {
+            padding-top: var(--section-pt, 100px);
+            padding-bottom: var(--section-pb, 100px);
+        }
+
+        @media (max-width: 991.98px) {
+            .section {
+                padding-top: var(--section-pt-md, var(--section-pt, 80px));
+                padding-bottom: var(--section-pb-md, var(--section-pb, 80px));
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .section {
+                padding-top: var(--section-pt-sm, var(--section-pt, 60px));
+                padding-bottom: var(--section-pb-sm, var(--section-pb, 60px));
+            }
+        }
+
+        /* Hero spacing + optional min-height control (reduce empty background) */
+        .welcome-area {
+            padding-top: var(--hero-pt, 140px);
+            padding-bottom: var(--hero-pb, 120px);
+            /* Override theme height if set */
+            height: var(--hero-height, auto);
+            min-height: var(--hero-min, 100vh);
+        }
+
+        @media (max-width: 575.98px) {
+            .welcome-area {
+                padding-top: var(--hero-pt-sm, var(--hero-pt, 100px));
+                padding-bottom: var(--hero-pb-sm, var(--hero-pb, 90px));
+                min-height: var(--hero-min-sm, var(--hero-min, 100vh));
+            }
+        }
+
+        /* Work-process container spacing */
+        .mini .mini-content {
+            padding-top: var(--mini-pt, 60px);
+            padding-bottom: var(--mini-pb, 60px);
+        }
+
+        /* Benefits section: pull up closer to the hero/white transition */
+        #beneficios.section {
+            --section-pt: 40px;
+            --section-pt-md: 32px;
+            --section-pt-sm: 22px;
+        }
+
+        /* Adjustable size for “Casos de uso” image */
+        #casos .cases-image {
+            width: 85%;
+            height: auto;
+            max-width: var(--casos-img-max, 520px);
+        }
+
+        @media (max-width: 991.98px) {
+            #casos .cases-image {
+                max-width: var(--casos-img-max-md, 460px);
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            #casos .cases-image {
+                max-width: var(--casos-img-max-sm, 360px);
+            }
+        }
+
+        /* === Equal heights for features (per row) === */
+        .home-feature .row>[class*='col-'] {
+            display: flex;
+        }
+
+        .home-feature .features-small-item {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+        }
+
+        .home-feature .features-small-item .icon {
+            flex: 0 0 auto;
+        }
+
+        .home-feature .features-small-item .features-title {
+            flex: 0 0 auto;
+        }
+
+        .home-feature .features-small-item p {
+            margin-top: auto;
+        }
+
+        /* Compact benefit bullets */
+        .home-feature .feature-points {
+            margin: 8px 0 12px;
+            padding: 0;
+            list-style: none;
+            font-size: 14px;
+            line-height: 1.45;
+            text-align: left;
+            /* mejor lectura */
             display: inline-block;
-            background-color: #3b42ac;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 0 10px;
-            transition: background-color 0.3s ease;
-            width: 80%;
-            /* Para que ocupen un buen espacio en móviles */
-            max-width: 300px;
+            /* se centra dentro de la tarjeta */
+            max-width: 100%;
         }
 
-        .buttons a:hover {
-            background-color: #4F79FD;
+        .home-feature .feature-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 6px 0;
         }
 
-        @media (min-width: 600px) {
-            .buttons {
-                flex-direction: row;
-                /* Cambia a disposición horizontal en pantallas más grandes */
-                justify-content: center;
-                gap: 20px;
-                /* Ajusta el espacio entre botones para pantallas grandes */
+        .home-feature .feature-points li i {
+            color: #ff589e;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 2px;
+            flex: 0 0 auto;
+        }
+
+        /* Casos de uso: bullets con checks, consistentes con beneficios */
+        #casos .use-cases {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #casos .use-cases>li {
+            margin-bottom: 16px;
+        }
+
+        #casos .use-cases>li>strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        #casos .feature-points {
+            margin: 6px 0 4px;
+            padding: 0;
+            list-style: none;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        #casos .feature-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        #casos .feature-points li i {
+            color: #ff589e;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 2px;
+            flex: 0 0 auto;
+        }
+
+        /* Ventaja única: comparación clara */
+        #ventaja .compare {
+            display: flex;
+            gap: 24px;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        #ventaja .compare-card {
+            flex: 1 1 0;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 14px;
+            padding: 22px 20px;
+            box-shadow: 0 10px 24px -12px rgba(0, 0, 0, .12);
+        }
+
+        #ventaja .compare-card h5 {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+
+        #ventaja .compare-card .feature-points {
+            margin: 8px 0 0;
+        }
+
+        #ventaja .compare-card.neg {
+            border-color: #f1d7de;
+        }
+
+        #ventaja .compare-card.pos {
+            border-color: #ffd1e1;
+        }
+
+        #ventaja .compare-card.neg .feature-points li i {
+            color: #c0392b;
+        }
+
+        #ventaja .compare-card.pos .feature-points li i {
+            color: #ff589e;
+        }
+
+        @media (max-width: 991.98px) {
+            #ventaja .compare {
+                flex-direction: column;
+            }
+        }
+
+        #contact-us .contact-form form {
+            transition: opacity .4s ease, transform .45s ease;
+        }
+
+        #contact-us .contact-form .status-bar {
+            margin-top: 16px;
+            min-height: 24px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        #contact-us .contact-form .status-bar[aria-live] {
+            outline: 0;
+        }
+
+        #contact-us .contact-form .status-bar .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(0, 0, 0, .15);
+            border-top-color: #ff589e;
+            border-radius: 50%;
+            animation: spin .9s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #contact-us .contact-form .hp-field {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #contact-us .contact-form.sent form {
+            opacity: 0;
+            transform: scale(.98);
+            pointer-events: none;
+        }
+
+        #contact-us .contact-form .success-panel {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 18px;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, .18);
+            opacity: 0;
+            transform: scale(.95);
+            pointer-events: none;
+            transition: opacity .55s cubic-bezier(.45, .65, .35, 1), transform .55s cubic-bezier(.45, .65, .35, 1);
+        }
+
+        #contact-us .contact-form.sent .success-panel {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        #contact-us .contact-form .success-panel .icon-check {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2ecc71, #25b864);
+            /* verde éxito */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 34px;
+            box-shadow: 0 10px 28px -8px rgba(46, 204, 113, .45);
+            margin-bottom: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact-us .contact-form .success-panel .icon-check:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .35), transparent 60%);
+            mix-blend-mode: overlay;
+        }
+
+        #contact-us .contact-form .success-panel h4 {
+            font-size: 20px;
+            margin: 0 0 8px;
+        }
+
+        #contact-us .contact-form .success-panel p {
+            font-size: 14px;
+            margin: 0;
+            color: #555;
+        }
+
+        #contact-us .contact-form .success-panel .again-btn {
+            margin-top: 22px;
+            background: #2f73ff;
+            background: linear-gradient(135deg, #4b8dff, #1f5fd9);
+            color: #fff;
+            border: 0;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 28px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px -6px rgba(56, 115, 255, .55);
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        #contact-us .contact-form .success-panel .again-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px -8px rgba(56, 115, 255, .6);
+        }
+
+        #contact-us .contact-form .success-panel .again-btn:active {
+            transform: translateY(0);
+        }
+
+        #contact-us .contact-form .error {
+            color: #c62828;
+        }
+
+        #contact-us .contact-form .ok {
+            color: #1b5e20;
+        }
+
+        #contact-us .contact-form button[disabled] {
+            opacity: .7;
+            cursor: not-allowed;
+        }
+
+        @media (max-width:575.98px) {
+            #contact-us .contact-form .success-panel {
+                position: static;
+                transform: none;
+                opacity: 1;
+                display: none;
+                box-shadow: none;
+                border: 0;
+                background: transparent;
+                padding: 0;
             }
 
-            .buttons a {
-                width: auto;
-                /* Vuelve a su tamaño automático en pantallas grandes */
+            #contact-us .contact-form.sent .success-panel {
+                display: flex;
             }
+        }
+
+        /* ===== Títulos de sección: subir tamaños (Contacto un poco más grande) ===== */
+        .section .section-title {
+            font-size: 34px;
+            line-height: 1.25;
+        }
+
+        #contact-us .section-title {
+            font-size: 38px;
+        }
+
+        /* Cómo funciona usa h1 en la mini section */
+        .mini .info h1 {
+            font-size: 36px;
+            line-height: 1.22;
+        }
+
+        @media (max-width: 575.98px) {
+            .section .section-title {
+                font-size: 28px;
+            }
+
+            #contact-us .section-title {
+                font-size: 32px;
+            }
+
+            .mini .info h1 {
+                font-size: 30px;
+            }
+        }
+
+        /* ===== Footer: spacing + legal links ===== */
+        footer {
+            padding-bottom: 36px;
+            /* separa del borde inferior */
+        }
+
+        footer .legal {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #9aa0a6;
+            text-align: center;
+            /* centrado consistente */
+        }
+
+        footer .legal a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        footer .legal a:hover {
+            color: #555;
+            text-decoration-thickness: from-font;
+        }
+
+        /* Contact form message counter */
+        #contact-us .char-counter {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
         }
     </style>
+
 </head>
 
 <body>
-    <div class="header">
-        <h1>Bienvenido a Autostock</h1>
-        <p>Una gestion inteligente de tu inventario</p>
-    </div>
 
-    <div class="container">
-        <h1>Explora Autostock</h1>
-        <p>Estamos encantados de tenerte aquí. Explora más sobre nosotros y descubre cómo podemos ayudarte.</p>
-
-        <div class="buttons">
-            <a href="terms/">Términos y Condiciones</a>
-            <a href="privacy/">Política de Privacidad</a>
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
+    <!-- ***** Preloader End ***** -->
+
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="#" class="logo">
+                            <img src="assets/images/autostock-logo.png" alt="Softy Pinko" />
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="#welcome" class="active">Inicio</a></li>
+                            <li><a href="#ventaja">Ventajas</a></li>
+                            <li><a href="#casos">Casos de uso</a></li>
+                            <li><a href="#work-process">Cómo funciona</a></li>
+                            <li><a href="#download">Descargar app</a></li>
+                            <li><a href="#contact-us">Contáctanos</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area" id="welcome"
+        style="--hero-min: 90vh; --hero-pt: 100px; --hero-pb: 60px; --hero-min-sm: 60vh; --hero-pt-sm: 80px; --hero-pb-sm: 40px;">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
+                        <h1>Inventario en <strong>tiempo real</strong><br>sin <strong>esfuerzo</strong></h1>
+                        <p>AutoStock combina un bote inteligente y una app que registran cada botella desechada para
+                            mantener tu inventario actualizado automáticamente.</p>
+                        <a href="#contact-us" class="main-button-slider">Solicitar demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+    </div>
+    <!-- ***** Welcome Area End ***** -->
+
+    <!-- ***** Features Small Start ***** -->
+    <!-- Ajustes por sección: cambia estos valores para mover el contenido arriba/abajo -->
+    <section class="section home-feature" id="beneficios"
+        style="--section-pt: 40px; --section-pb: 80px; --section-pt-md: 32px; --section-pb-md: 60px; --section-pt-sm: 22px; --section-pb-sm: 48px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row justify-content-center">
+                        <!-- ***** Beneficio 1 ***** -->
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12"
+                            data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i><img src="assets/images/featured-item-01.png" alt=""></i>
+                                </div>
+                                <h5 class="features-title">Evita pérdidas</h5>
+                                <ul class="feature-points">
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Registra cada botella al
+                                            momento de desecharla.</span></li>
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Alertas ante faltantes y
+                                            quiebres por rotación.</span></li>
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Historial por producto,
+                                            barra y horario.</span></li>
+                                </ul>
+                                <p>Visibilidad instantánea de lo que se desecha y cuándo.</p>
+                            </div>
+                        </div>
+                        <!-- ***** Beneficio 2 ***** -->
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12"
+                            data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i><img src="assets/images/featured-item-01.png" alt=""></i>
+                                </div>
+                                <h5 class="features-title">Ahorra tiempo</h5>
+                                <ul class="feature-points">
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Inventario automático
+                                            durante el servicio.</span></li>
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Reporte listo al cierre sin
+                                            conteo manual.</span></li>
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Sin planillas ni papel: todo
+                                            en la app.</span></li>
+                                </ul>
+                                <p>Inventarios automáticos sin cierres eternos ni conteos manuales.</p>
+                            </div>
+                        </div>
+                        <!-- ***** Beneficio 3 ***** -->
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12"
+                            data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
+                            <div class="features-small-item">
+                                <div class="icon">
+                                    <i><img src="assets/images/featured-item-01.png" alt=""></i>
+                                </div>
+                                <h5 class="features-title">Reduce costos</h5>
+                                <ul class="feature-points">
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Pedidos sugeridos según
+                                            rotación real.</span></li>
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Umbrales configurables por
+                                            producto y barra.</span></li>
+                                    <li><i class="fa fa-check" aria-hidden="true"></i><span>Menos quiebres, menos
+                                            sobrestock.</span></li>
+                                </ul>
+                                <p>Pedidos precisos y reabastecimiento basado en datos reales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Small End ***** -->
+
+    <!-- ***** Differentiator Start ***** -->
+    <section class="section" id="ventaja"
+        style="--section-pt: 50px; --section-pb: 30px; --section-pt-md: 40px; --section-pb-md: 30px; --section-pt-sm: 30px; --section-pb-sm: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 class="section-title">Nuestra ventaja única</h2>
+                    </div>
+                </div>
+                <div class="offset-lg-2 col-lg-8">
+                    <div class="center-text">
+                        <p>Otros sistemas estiman botellas a partir de copas vendidos. AutoStock registra la realidad:
+                            cada botella desechada, en el momento.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-6 col-md-12">
+                    <div class="compare-card neg">
+                        <h5>Cómo funciona en otros sistemas</h5>
+                        <ul class="feature-points">
+                            <li><i class="fa fa-times" aria-hidden="true"></i><span> Estiman consumo según recetas y
+                                    supuestos de medidas.</span></li>
+                            <li><i class="fa fa-times" aria-hidden="true"></i><span> No reflejan pérdidas, mermas o
+                                    cambios de marca en el momento.</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
+                    <div class="compare-card pos">
+                        <h5>Cómo lo resuelve AutoStock</h5>
+                        <ul class="feature-points">
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span> Registra cada botella al
+                                    desecharla: dato real, no estimado.</span></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span> Identificación confiable del
+                                    producto (código leído).</span></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span> Visibilidad por barra y turno, con
+                                    horario.</span></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span> Inventario en tiempo real para
+                                    decidir compras sin sorpresas.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Differentiator End ***** -->
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section padding-top-70 padding-bottom-0" id="casos"
+        style="--section-pt: 60px; --section-pb: 60px; --section-pt-md: 48px; --section-pb-md: 48px; --section-pt-sm: 36px; --section-pb-sm: 36px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12 align-self-center"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src="assets/images/cubo.png" class="rounded img-fluid d-block mx-auto cases-image" alt="App">
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-top-fix">
+                    <div class="left-heading">
+                        <h2 class="section-title">Casos de uso</h2>
+                    </div>
+                    <div class="left-text">
+                        <p>Funciona perfecto en bares, discotecas, hoteles y restaurantes, y más.</p>
+                        <ul class="feature-points">
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span>Inventario en tiempo real por barra
+                                    y turno.</span></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span>Cierre rápido sin conteo
+                                    manual.</span></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span>Alertas por quiebres y productos
+                                    críticos.</span></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span>Pedidos sugeridos según rotación y
+                                    umbrales por producto.</span></li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i><span>Historial por día y horario para
+                                    decidir compras con datos.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hr"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+
+
+
+    <!-- ***** Home Parallax Start ***** -->
+    <section class="mini" id="work-process" style="--mini-pt: 50px; --mini-pb: 50px;">
+        <div class="mini-content">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-lg-3 col-lg-6">
+                        <div class="info">
+                            <h1>Cómo funciona</h1>
+                            <p>Registra cada botella al desecharla y mantén tu inventario actualizado automáticamente.
+                                Decide compras con datos en tiempo real.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ***** Mini Box Start ***** -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                        <a href="#" class="mini-box">
+                            <span class="step-index">1</span>
+                            <strong>Deposita y detecta</strong>
+                            <span>Lectores 360° en la apertura identifican el código desde varios ángulos.</span>
+                            <ul class="step-points">
+                                <li><i class="fa fa-check" aria-hidden="true"></i><span>Lee el código al depositar la
+                                        botella.</span></li>
+                                <li><i class="fa fa-check" aria-hidden="true"></i><span>Funciona con etiquetas en
+                                        distintos estados.</span></li>
+                            </ul>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                        <a href="#" class="mini-box">
+                            <span class="step-index">2</span>
+                            <strong>Registra y sincroniza</strong>
+                            <span>Producto, fecha y hora se envían a la app en tiempo real.</span>
+                            <ul class="step-points">
+                                <li><i class="fa fa-check" aria-hidden="true"></i><span>Datos precisos: producto, fecha
+                                        y hora.</span></li>
+                                <li><i class="fa fa-check" aria-hidden="true"></i><span>Inventario actualizado al
+                                        instante.</span></li>
+                            </ul>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                        <a href="#" class="mini-box">
+                            <span class="step-index">3</span>
+                            <strong>Reabastece con precisión</strong>
+                            <span>Pedidos sugeridos por rotación y umbrales configurables.</span>
+                            <ul class="step-points">
+                                <li><i class="fa fa-check" aria-hidden="true"></i><span>Pedidos sugeridos según rotación
+                                        real.</span></li>
+                                <li><i class="fa fa-check" aria-hidden="true"></i><span>Reponer a tiempo con umbrales
+                                        por barra.</span></li>
+                            </ul>
+                        </a>
+                    </div>
+                </div>
+                <!-- ***** Mini Box End ***** -->
+            </div>
+        </div>
+    </section>
+    <!-- ***** Home Parallax End ***** -->
+
+
+
+    <!-- ***** Download App Start ***** -->
+    <section class="section colored" id="download"
+        style="--section-pt: 80px; --section-pb: 0px; --section-pt-md: 64px; --section-pb-md: 64px; --section-pt-sm: 48px; --section-pb-sm: 48px;">
+        <div class="container">
+            <div class="download-inline">
+                <div class="download-card">
+                    <h3>Instala la App</h3>
+                    <p class="desc">Escanea el código o abre la tienda correspondiente para instalar AutoStock.</p>
+                    <div class="store-badges">
+                        <a href="https://apps.apple.com/fr/app/auto-stock/id6710699044?l=en-GB"
+                            class="store-badge app-store" aria-label="Disponible en App Store" target="_blank"
+                            rel="noopener">
+                            <i class="fa fa-apple" aria-hidden="true"></i>
+                            <span class="badge-text"><small>Disponible en</small><strong>App Store</strong></span>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.autostock.autostock.app&hl=es"
+                            class="store-badge google-play" aria-label="Disponible en Google Play" target="_blank"
+                            rel="noopener">
+                            <img src="assets/images/gplay.svg" alt="Google Play" width="28" height="28">
+                            <span class="badge-text"><small>Disponible en</small><strong>Google Play</strong></span>
+                        </a>
+                    </div>
+                    <div class="qr-selector-wrapper" aria-label="Selecciona QR por plataforma">
+                        <div class="qr-head">
+                            <strong>Descarga con código QR</strong>
+                            <div class="segmented" role="tablist" aria-label="Elegir plataforma">
+                                <span class="segmented__slider" aria-hidden="true"></span>
+                                <button id="qrTabIos" class="active" role="tab" aria-selected="true"
+                                    aria-controls="qrPanelIos"><i class="fa fa-apple"
+                                        aria-hidden="true"></i><span>iOS</span></button>
+                                <button id="qrTabAndroid" role="tab" aria-selected="false"
+                                    aria-controls="qrPanelAndroid"><i class="fa fa-android"
+                                        aria-hidden="true"></i><span>Android</span></button>
+                            </div>
+                        </div>
+                        <div class="qr-panels">
+                            <div id="qrPanelIos" class="qr-box" role="tabpanel" aria-labelledby="qrTabIos">
+                                <img id="qrImgIos" src="assets/images/ios-qr.svg" alt="Código QR App Store AutoStock"
+                                    loading="lazy" />
+                            </div>
+                            <div id="qrPanelAndroid" class="qr-box hidden" role="tabpanel"
+                                aria-labelledby="qrTabAndroid">
+                                <img id="qrImgAndroid" src="assets/images/android-qr.svg"
+                                    alt="Código QR Google Play AutoStock" loading="lazy" />
+                            </div>
+                        </div>
+                        <div class="qr-caption-alt">Escanea el código de tu plataforma preferida.</div>
+                    </div><!-- qr selector wrapper -->
+                </div><!-- download-card -->
+                <div class="mock ios" style="--device-height-ios:520px;">
+                    <!-- Reemplaza la imagen por tu mockup (iPhone) -->
+                    <img src="assets/images/iphone.png" alt="Vista previa iOS de AutoStock" loading="lazy" />
+                </div>
+                <div class="mock android" style="--device-height-android:560px;">
+                    <!-- Reemplaza la imagen por tu mockup (Android) -->
+                    <img src="assets/images/android.png" alt="Vista previa Android de AutoStock" loading="lazy" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Download App End ***** -->
+
+    <!-- ***** Contact Us Start ***** -->
+    <section class="section colored" id="contact-us"
+        style="--section-pt: 80px; --section-pb: 80px; --section-pt-md: 64px; --section-pb-md: 64px; --section-pt-sm: 48px; --section-pb-sm: 48px;">
+        <div class="container">
+            <!-- ***** Section Title Start ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center-heading">
+                        <h2 class="section-title">Contáctanos</h2>
+                    </div>
+                </div>
+                <div class="offset-lg-2 col-lg-8">
+                    <div class="center-text">
+                        <p>Hablemos de tu operación. Te respondemos en menos de 24&nbsp;horas.</p>
+                        <p>Demostración sin compromiso (por videollamada o en tu local).
+                            Prueba piloto y planes según el tamaño de tu operación.
+                            Acompañamiento y soporte continuo.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ***** Section Title End ***** -->
+
+            <div class="row">
+                <!-- ***** Contact Text Start ***** -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <h5 class="margin-bottom-30">¿Qué incluir en tu mensaje?</h5>
+                    <div class="contact-text">
+                        <ul>
+                            <li>Ciudad/país y tipo de negocio (bar, restaurante, hotel, evento).</li>
+                            <li>Número de barras o puntos de servicio.</li>
+                            <li>El principal problema que quieres resolver.</li>
+                            <li>Tu teléfono o WhatsApp y el mejor horario para contactarte.</li>
+                        </ul>
+                        <p class="mt-2">Con estos datos preparamos una propuesta y te contactamos rápido.</p>
+                    </div>
+                </div>
+                <!-- ***** Contact Text End ***** -->
+
+                <!-- ***** Contact Form Start ***** -->
+                <div class="col-lg-8 col-md-6 col-sm-12">
+                    <div class="contact-form">
+                        <form id="contact" action="" method="get">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="name" type="text" class="form-control" id="name"
+                                            placeholder="Nombre completo" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="email" type="email" class="form-control" id="email"
+                                            placeholder="Correo electronico" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <textarea name="message" rows="6" class="form-control" id="message"
+                                            maxlength="1000" aria-describedby="messageCounter"
+                                            placeholder="Tu mensaje para nosotros" required=""></textarea>
+                                        <div id="messageCounter" class="char-counter">0/1000</div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="main-button"
+                                            data-default-text="Enviar mensaje">Enviar mensaje</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="status-bar" id="contactStatus" aria-live="polite"></div>
+                        </form>
+                        <div class="success-panel" aria-hidden="true" id="contactSuccessPanel">
+                            <div class="icon-check"><i class="fa fa-check" aria-hidden="true"></i></div>
+                            <h4>Mensaje enviado</h4>
+                            <p>Gracias por contactarnos. Te responderemos lo antes posible.</p>
+                            <button type="button" class="again-btn" id="contactAgainBtn">Enviar otro mensaje</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ***** Contact Form End ***** -->
+            </div>
+        </div>
+    </section>
+    <!-- ***** Contact Us End ***** -->
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <ul class="social">
+                        <!-- Reemplaza la URL con tu perfil real de Instagram -->
+                        <li><a href="https://www.instagram.com/autostock_es/" target="_blank" rel="noopener"
+                                aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright">Copyright &copy; 2025 AutoStock - Design: TemplateMo</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="legal">
+                        <a href="privacy/" aria-label="Política de privacidad">Política de privacidad</a>
+                        <span aria-hidden="true"> • </span>
+                        <a href="terms/" aria-label="Términos y condiciones">Términos y condiciones</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="assets/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="assets/js/scrollreveal.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/imgfix.min.js"></script>
+
+    <!-- Global Init -->
+    <script src="assets/js/custom.js"></script>
+
+    <!-- Endpoint real para el formulario de contacto -->
+    <script>
+        // Ajusta la URL si tu endpoint es distinto
+        window.AUTOSTOCK_CONTACT_ENDPOINT = 'https://wg3yf97ncd.execute-api.eu-west-3.amazonaws.com/getStoreId';
+    </script>
+
+    <!-- QR selector logic -->
+    <script>
+        (function () {
+            var el = {
+                tabIos: document.getElementById('qrTabIos'),
+                tabAndroid: document.getElementById('qrTabAndroid'),
+                panelIos: document.getElementById('qrPanelIos'),
+                panelAndroid: document.getElementById('qrPanelAndroid'),
+                slider: document.querySelector('#download .segmented__slider'),
+                segmented: document.querySelector('#download .segmented')
+            };
+            function moveSlider(activeBtn) {
+                if (!el.slider || !el.segmented || !activeBtn) return;
+                var segRect = el.segmented.getBoundingClientRect();
+                var btnRect = activeBtn.getBoundingClientRect();
+                var left = btnRect.left - segRect.left;
+                el.slider.style.left = left + 'px';
+                el.slider.style.width = btnRect.width + 'px';
+            }
+            function select(kind) {
+                var ios = kind === 'ios';
+                if (el.tabIos) {
+                    el.tabIos.classList.toggle('active', ios);
+                    el.tabIos.setAttribute('aria-selected', ios);
+                }
+                if (el.tabAndroid) {
+                    el.tabAndroid.classList.toggle('active', !ios);
+                    el.tabAndroid.setAttribute('aria-selected', !ios);
+                }
+                if (el.panelIos) {
+                    el.panelIos.classList.toggle('hidden', !ios);
+                    el.panelIos.classList.toggle('active', ios);
+                }
+                if (el.panelAndroid) {
+                    el.panelAndroid.classList.toggle('hidden', ios);
+                    el.panelAndroid.classList.toggle('active', !ios);
+                }
+                moveSlider(ios ? el.tabIos : el.tabAndroid);
+            }
+            if (el.tabIos) el.tabIos.addEventListener('click', function () { select('ios'); });
+            if (el.tabAndroid) el.tabAndroid.addEventListener('click', function () { select('android'); });
+            // default choose - if user agent matches
+            var ua = navigator.userAgent || '';
+            if (/Android/i.test(ua)) select('android'); else select('ios');
+            window.addEventListener('resize', function () { moveSlider(document.querySelector('#download .segmented button.active')); });
+        })();
+
+        // ================= Contact form submission / bot protection =================
+        (function () {
+            var form = document.getElementById('contact');
+            if (!form) return;
+            var statusEl = document.getElementById('contactStatus');
+            var btn = document.getElementById('form-submit');
+            var successPanel = document.getElementById('contactSuccessPanel');
+            var againBtn = document.getElementById('contactAgainBtn');
+            var msgEl = document.getElementById('message');
+            var counterEl = document.getElementById('messageCounter');
+            var loadTs = Date.now();
+            var RATE_LIMIT_SECONDS = 60; // enfriar 1 minuto
+            var MIN_DELTA_MS = 1200; // mínimo 1.2s para considerar humano
+            // Endpoint de tu AWS Lambda (API Gateway). Reemplaza la URL cuando lo tengas listo.
+            // Debe responder con status 200 para considerarse éxito.
+            // Endpoint real configurado arriba
+            var LAMBDA_ENDPOINT = "https://9rry6c9pq3.execute-api.eu-west-3.amazonaws.com/emailSender";
+
+            function setStatus(html, cls) {
+                if (!statusEl) return;
+                statusEl.className = 'status-bar ' + (cls || '');
+                statusEl.innerHTML = html || '';
+            }
+            function disableForm(dis) {
+                if (dis) { btn.setAttribute('disabled', 'disabled'); } else { btn.removeAttribute('disabled'); }
+            }
+            function showSpinner() { btn.dataset.defaultText = btn.dataset.defaultText || btn.textContent; btn.innerHTML = '<span class="spinner"></span>Enviando...'; }
+            function restoreBtn() { if (btn.dataset.defaultText) btn.textContent = btn.dataset.defaultText; }
+            function markSent() { form.parentElement.classList.add('sent'); successPanel && successPanel.setAttribute('aria-hidden', 'false'); }
+            function resetForm() {
+                // Limpia campos y estados para permitir nuevo envío
+                form.parentElement.classList.remove('sent');
+                if (successPanel) successPanel.setAttribute('aria-hidden', 'true');
+                form.reset();
+                setStatus('', '');
+                restoreBtn();
+                disableForm(false);
+                loadTs = Date.now(); // reinicia temporizador para nueva medición delta
+                // reinicia contador
+                if (msgEl && counterEl) updateCounter();
+            }
+            function recentlySent() {
+                try {
+                    var last = parseInt(localStorage.getItem('contact_last_sent') || '0', 10);
+                    return (Date.now() - last) < RATE_LIMIT_SECONDS * 1000;
+                } catch (e) {
+                    console.warn('localStorage unavailable', e);
+                    return false;
+                }
+            }
+            function storeSent() {
+                try {
+                    localStorage.setItem('contact_last_sent', Date.now().toString());
+                } catch (e) {
+                    console.warn('No se pudo guardar rate limit', e);
+                }
+            }
+
+            // Contador de caracteres del mensaje
+            function updateCounter() {
+                if (!msgEl || !counterEl) return;
+                var max = parseInt(msgEl.getAttribute('maxlength') || '500', 10);
+                var len = (msgEl.value || '').length;
+                counterEl.textContent = len + '/' + max;
+            }
+            if (msgEl) {
+                msgEl.addEventListener('input', updateCounter);
+                updateCounter();
+            }
+
+            form.addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                if (recentlySent()) { setStatus('Por favor espera unos segundos antes de enviar otro mensaje.', 'error'); return; }
+                var delta = Date.now() - loadTs;
+                var data = new FormData(form);
+                // Honeypot
+                if (data.get('company')) { // bot probable
+                    setStatus('Mensaje enviado.', 'ok'); // no llamamos lambda (tar pit)
+                    markSent();
+                    return;
+                }
+                var name = (data.get('name') || '').trim();
+                var email = (data.get('email') || '').trim();
+                var message = (data.get('message') || '').trim();
+                if (!name || !email || !message) { setStatus('Completa todos los campos.', 'error'); return; }
+                // Velocidad sospechosa -> simular éxito pero no mandar
+                if (delta < MIN_DELTA_MS) {
+                    setStatus('Mensaje enviado.', 'ok');
+                    markSent();
+                    return;
+                }
+                disableForm(true); showSpinner(); setStatus('', '');
+                // Payload simplificado para Lambda
+                var payload = { name: name, email: email, message: message };
+                // Sin simulación: siempre intenta envío real
+                // Timeout manual por si la lambda no responde
+                var aborted = false;
+                var timeout = setTimeout(function () {
+                    aborted = true;
+                    disableForm(false);
+                    restoreBtn();
+                    setStatus('Tiempo de espera excedido, intenta nuevamente. Si el problema persiste, escríbenos a <a href="mailto:autostock.public@gmail.com">autostock.public@gmail.com</a>.', 'error');
+                }, 15000);
+                if (!/^https?:\/\//i.test(LAMBDA_ENDPOINT)) {
+                    disableForm(false);
+                    restoreBtn();
+                    setStatus('Configuración incompleta del endpoint. También puedes contactarnos en <a href="mailto:autostock.public@gmail.com">autostock.public@gmail.com</a>.', 'error');
+                    return;
+                }
+                fetch(LAMBDA_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(function (r) {
+                    if (aborted) return;
+                    clearTimeout(timeout);
+                    // Éxito explícito si status === 200
+                    if (r.status === 200) {
+                        setStatus('Mensaje enviado correctamente.', 'ok');
+                        markSent(); storeSent();
+                        return;
+                    }
+                    return r.text().then(function (txt) { throw new Error(txt || ('HTTP ' + r.status)); });
+                }).catch(function (err) {
+                    if (aborted) return;
+                    clearTimeout(timeout);
+                    disableForm(false); restoreBtn();
+                    setStatus('Hubo un error al enviar. Puedes escribirnos a <a href="mailto:autostock.public@gmail.com">autostock.public@gmail.com</a>.', 'error');
+                    console.error('Contact form error', err);
+                });
+            });
+            if (againBtn) {
+                againBtn.addEventListener('click', function () { resetForm(); });
+            }
+        })();
+    </script>
+
 </body>
 
 </html>
