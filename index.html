@@ -1308,6 +1308,12 @@ https://templatemo.com/tm-535-softy-pinko
                                 </div>
                                 <div class="col-lg-12">
                                     <fieldset>
+                                        <input name="phone" type="tel" class="form-control" id="phone" inputmode="tel"
+                                            autocomplete="tel" placeholder="Teléfono (opcional)">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
                                         <textarea name="message" rows="6" class="form-control" id="message"
                                             maxlength="1000" aria-describedby="messageCounter"
                                             placeholder="Tu mensaje para nosotros" required=""></textarea>
@@ -1518,8 +1524,9 @@ https://templatemo.com/tm-535-softy-pinko
                 }
                 var name = (data.get('name') || '').trim();
                 var email = (data.get('email') || '').trim();
+                var phone = (data.get('phone') || '').trim(); // opcional
                 var message = (data.get('message') || '').trim();
-                if (!name || !email || !message) { setStatus('Completa todos los campos.', 'error'); return; }
+                if (!name || !email || !message) { setStatus('Completa nombre, correo y mensaje.', 'error'); return; }
                 // Velocidad sospechosa -> simular éxito pero no mandar
                 if (delta < MIN_DELTA_MS) {
                     setStatus('Mensaje enviado.', 'ok');
@@ -1529,6 +1536,7 @@ https://templatemo.com/tm-535-softy-pinko
                 disableForm(true); showSpinner(); setStatus('', '');
                 // Payload simplificado para Lambda
                 var payload = { name: name, email: email, message: message };
+                if (phone) payload.phone = phone;
                 // Sin simulación: siempre intenta envío real
                 // Timeout manual por si la lambda no responde
                 var aborted = false;
