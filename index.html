@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
     <meta name="description"
         content="AutoStock: inventario en tiempo real para bares y discotecas. Registra cada botella al desecharla y reabastece con precisión para evitar pérdidas, ahorrar tiempo y reducir costos.">
     <meta name="author" content="">
@@ -849,7 +849,59 @@ https://templatemo.com/tm-535-softy-pinko
         #contact-us .char-counter {
             font-size: 12px;
             color: #666;
-            margin-top: 6px;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
+        /* ===== Mobile spacing fixes ===== */
+        @media (max-width: 575.98px) {
+
+            /* 1) Asegura separación del texto del hero respecto al header fijo */
+            .welcome-area .header-text {
+                padding-top: calc(18px + env(safe-area-inset-top));
+                /* respeta el notch en iOS */
+            }
+
+            /* 2) Acerca la primera tarjeta a la división azul/blanco como en desktop */
+            .welcome-area {
+                padding-bottom: 18px !important;
+                /* reduce el espacio inferior del hero en móviles */
+            }
+
+            #beneficios.section {
+                margin-top: -180px;
+                /* sube más la primera fila de tarjetas en móvil */
+            }
+
+            /* 3) Añade separación vertical entre filas de "Cómo funciona" (2 arriba, 1 abajo) */
+            #work-process .row.justify-content-center>[class*='col-'] {
+                margin-bottom: 16px;
+            }
+        }
+
+        /* ===== Tablet spacing fixes (sm/md) ===== */
+        @media (min-width: 576px) and (max-width: 991.98px) {
+
+            /* 1) Un poco de separación extra del hero respecto al header fijo */
+            .welcome-area .header-text {
+                padding-top: 12px;
+            }
+
+            /* 2) Reduce el espacio inferior del hero y sube ligeramente la primera fila de tarjetas */
+            .welcome-area {
+                padding-bottom: 28px !important;
+            }
+
+            #beneficios.section {
+                margin-top: -120px;
+                /* sube más las tarjetas en tablet */
+            }
+
+            /* 3) Separación vertical entre filas en "Cómo funciona" cuando hay 2 arriba y 1 abajo */
+            #work-process .row.justify-content-center>[class*='col-'] {
+                margin-bottom: 18px;
+            }
         }
     </style>
 
@@ -901,8 +953,7 @@ https://templatemo.com/tm-535-softy-pinko
 
     <!-- ***** Welcome Area Start ***** -->
     <div class="welcome-area" id="welcome"
-        style="--hero-min: 90vh; --hero-pt: 100px; --hero-pb: 60px; --hero-min-sm: 60vh; --hero-pt-sm: 80px; --hero-pb-sm: 40px;">
-
+        style="--hero-min: 90vh; --hero-pt: 100px; --hero-pb: 60px; --hero-min-sm: 60vh; --hero-pt-sm: 200px; --hero-pb-sm: 40px;">
         <!-- ***** Header Text Start ***** -->
         <div class="header-text">
             <div class="container">
@@ -923,7 +974,7 @@ https://templatemo.com/tm-535-softy-pinko
     <!-- ***** Features Small Start ***** -->
     <!-- Ajustes por sección: cambia estos valores para mover el contenido arriba/abajo -->
     <section class="section home-feature" id="beneficios"
-        style="--section-pt: 40px; --section-pb: 80px; --section-pt-md: 32px; --section-pb-md: 60px; --section-pt-sm: 22px; --section-pb-sm: 48px;">
+        style="--section-pt: 40px; --section-pb: 80px; --section-pt-md: 32px; --section-pb-md: 60px; --section-pt-sm: 0px; --section-pb-sm: 50px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -1202,7 +1253,7 @@ https://templatemo.com/tm-535-softy-pinko
 
     <!-- ***** Contact Us Start ***** -->
     <section class="section colored" id="contact-us"
-        style="--section-pt: 80px; --section-pb: 80px; --section-pt-md: 64px; --section-pb-md: 64px; --section-pt-sm: 48px; --section-pb-sm: 48px;">
+        style="--section-pt: 80px; --section-pb: 80px; --section-pt-md: 64px; --section-pb-md: 64px; --section-pt-sm: 0px; --section-pb-sm: 48px;">
         <div class="container">
             <!-- ***** Section Title Start ***** -->
             <div class="row">
